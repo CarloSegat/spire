@@ -14,6 +14,7 @@ import (
 	common_cli "github.com/spiffe/spire/pkg/common/cli"
 	"github.com/spiffe/spire/pkg/common/cliprinter"
 	"google.golang.org/grpc/codes"
+	"github.com/kr/pretty"
 )
 
 // NewSetCommand creates a new "set" subcommand for "bundle" command.
@@ -74,6 +75,8 @@ func (c *setCommand) Run(ctx context.Context, env *common_cli.Env, serverClient 
 	if err != nil {
 		return err
 	}
+	
+	stdlog.Println(fmt.Sprintf("%# v\n", pretty.Formatter(bundle)))
 
 	bundleClient := serverClient.NewBundleClient()
 	resp, err := bundleClient.BatchSetFederatedBundle(ctx, &bundlev1.BatchSetFederatedBundleRequest{
