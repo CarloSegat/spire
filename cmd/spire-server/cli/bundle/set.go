@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	stdlog "log"
 
 	"github.com/mitchellh/cli"
 	bundlev1 "github.com/spiffe/spire-api-sdk/proto/spire/api/server/bundle/v1"
@@ -63,6 +64,11 @@ func (c *setCommand) Run(ctx context.Context, env *common_cli.Env, serverClient 
 	if err != nil {
 		return fmt.Errorf("unable to load bundle data: %w", err)
 	}
+
+	var temp = string(bundleBytes)
+	stdlog.Println("this is how you print to stdout")
+	stdlog.Println(temp)
+
 
 	bundle, err := util.ParseBundle(bundleBytes, bundleFormat, c.id)
 	if err != nil {
